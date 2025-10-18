@@ -1,653 +1,518 @@
- // Rolagem suave para links de navegação
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+// ===================================
+// NAVIGATION & MENU TOGGLE
+// ===================================
+
+const navbar = document.getElementById('navbar');
+const menuToggle = document.getElementById('menuToggle');
+const navMenu = document.getElementById('navMenu');
+const navLinks = document.querySelectorAll('.nav-link');
+
+// Toggle mobile menu
+menuToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+    
+    // Animate hamburger icon
+    const spans = menuToggle.querySelectorAll('span');
+    if (navMenu.classList.contains('active')) {
+        spans[0].style.transform = 'rotate(45deg) translateY(8px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translateY(-8px)';
+    } else {
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+    }
+});
+
+// Close mobile menu when clicking on a link
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        const spans = menuToggle.querySelectorAll('span');
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+    });
+});
+
+// Navbar scroll effect
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll > 100) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+    
+    lastScroll = currentScroll;
+});
+
+// ===================================
+// SMOOTH SCROLLING
+// ===================================
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            const offsetTop = target.offsetTop - 70;
+            window.scrollTo({
+                top: offsetTop,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// ===================================
+// SCROLL ANIMATIONS
+// ===================================
+
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+// Observe all sections and cards
+document.querySelectorAll('.section, .menu-item, .testimonial-card, .about-image-wrapper').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+});
+
+// ===================================
+// STAR RATING SYSTEM
+// ===================================
+
+const starRating = document.getElementById('starRating');
+const ratingValue = document.getElementById('ratingValue');
+
+if (starRating) {
+    const stars = starRating.querySelectorAll('span');
+    
+    stars.forEach((star, index) => {
+        star.addEventListener('click', () => {
+            const rating = star.getAttribute('data-rating');
+            ratingValue.value = rating;
+            
+            // Update star display
+            stars.forEach((s, i) => {
+                if (i < rating) {
+                    s.textContent = '★';
+                    s.classList.add('active');
+                } else {
+                    s.textContent = '☆';
+                    s.classList.remove('active');
                 }
             });
         });
-
-        // Animação de fade-in ao rolar a página
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-            
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'linear-gradient(135deg, rgba(124,58,237,0.95), rgba(91,33,182,0.95))';
-            } else {
-                header.style.background = 'linear-gradient(135deg, #7C3AED, #5B21B6)';
-            }
-        });
-
-        // Efeito de hover nos itens do menu
-        document.querySelectorAll('.menu-item').forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px) scale(1.02)';
-            });
-            
-            item.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-
-        // Efeito de clique nos itens de contato
-        document.querySelectorAll('.contact-item').forEach(item => {
-            item.addEventListener('click', function() {
-                this.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    this.style.transform = 'scale(1)';
-                }, 150);
-            });
-        });
-
-        //Efeito de pulso
-        const ctaButton = document.querySelector('.cta-button');
-        setInterval(() => {
-            ctaButton.style.transform = 'scale(1.05)';
-            setTimeout(() => {
-            ctaButton.style.transform = 'scale(1)';
-            }, 200);
-        }, 3000);
-
-        // Animação de entrada
-        window.addEventListener('load', () => {
-            document.body.style.opacity = '0';
-            setTimeout(() => {
-                document.body.style.transition = 'opacity 0.5s ease';
-                document.body.style.opacity = '1';
-            }, 100);
-        });
-
-        // Alternar menu mobile
-        const mobileMenuBtn = document.createElement('button');
-        mobileMenuBtn.innerHTML = '☰';
-        mobileMenuBtn.style.cssText = `
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.5rem;
-        `;
         
-        document.querySelector('nav').appendChild(mobileMenuBtn);
+        star.addEventListener('mouseenter', () => {
+            const rating = star.getAttribute('data-rating');
+            stars.forEach((s, i) => {
+                if (i < rating) {
+                    s.textContent = '★';
+                } else {
+                    s.textContent = '☆';
+                }
+            });
+        });
+    });
+    
+    starRating.addEventListener('mouseleave', () => {
+        const currentRating = ratingValue.value;
+        stars.forEach((s, i) => {
+            if (i < currentRating) {
+                s.textContent = '★';
+            } else {
+                s.textContent = '☆';
+            }
+        });
+    });
+}
+
+// ===================================
+// FORM VALIDATIONS & SUBMISSIONS
+// ===================================
+
+// Event Form
+const eventForm = document.getElementById('eventForm');
+if (eventForm) {
+    eventForm.addEventListener('submit', (e) => {
+        e.preventDefault();
         
-        mobileMenuBtn.addEventListener('click', () => {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        const formData = new FormData(eventForm);
+        const data = Object.fromEntries(formData);
+        
+        // Validate data
+        if (!validateForm(data)) {
+            return;
+        }
+        
+        // Show success message
+        showSuccessMessage('Reserva para o evento confirmada! Entraremos em contato em breve.');
+        eventForm.reset();
+    });
+}
+
+// Feedback Form
+const feedbackForm = document.getElementById('feedbackForm');
+if (feedbackForm) {
+    feedbackForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(feedbackForm);
+        const data = Object.fromEntries(formData);
+        
+        // Validate rating
+        if (!data.rating) {
+            alert('Por favor, selecione uma avaliação com estrelas.');
+            return;
+        }
+        
+        // Validate other fields
+        if (!validateForm(data)) {
+            return;
+        }
+        
+        // Show success message
+        showSuccessMessage('Obrigado pelo seu feedback! Sua opinião é muito importante para nós.');
+        feedbackForm.reset();
+        
+        // Reset star rating
+        const stars = document.querySelectorAll('#starRating span');
+        stars.forEach(s => {
+            s.textContent = '☆';
+            s.classList.remove('active');
         });
+        document.getElementById('ratingValue').value = '';
+    });
+}
 
-        // Menu Responsivo 
-        function checkScreenSize() {
-            const navLinks = document.querySelector('.nav-links');
-            const mobileBtn = mobileMenuBtn;
-            
-            if (window.innerWidth <= 768) {
-                mobileBtn.style.display = 'block';
-                navLinks.style.cssText = `
-                    display: none;
-                    position: absolute;
-                    top: 100%;
-                    left: 0;
-                    width: 100%;
-                    background: linear-gradient(135deg, #7C3AED, #5B21B6);
-                    flex-direction: column;
-                    padding: 1rem;
-                    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-                `;
-            } else {
-                mobileBtn.style.display = 'none';
-                navLinks.style.cssText = `
-                    display: flex;
-                    list-style: none;
-                    gap: 2rem;
-                    position: static;
-                    width: auto;
-                    background: none;
-                    flex-direction: row;
-                    padding: 0;
-                    box-shadow: none;
-                `;
+// Reservation Form
+const reservationForm = document.getElementById('reservationForm');
+if (reservationForm) {
+    reservationForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(reservationForm);
+        const data = Object.fromEntries(formData);
+        
+        // Validate date (must be future date)
+        const selectedDate = new Date(data.data);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        if (selectedDate < today) {
+            alert('Por favor, selecione uma data futura.');
+            return;
+        }
+        
+        // Validate form
+        if (!validateForm(data)) {
+            return;
+        }
+        
+        // Show success message
+        showSuccessMessage('Reserva confirmada! Enviaremos a confirmação para o seu e-mail.');
+        reservationForm.reset();
+    });
+}
+
+// ===================================
+// HELPER FUNCTIONS
+// ===================================
+
+function validateForm(data) {
+    // Check required fields
+    for (let key in data) {
+        if (data[key] === '' && key !== 'observacoes') {
+            alert('Por favor, preencha todos os campos obrigatórios.');
+            return false;
+        }
+    }
+    
+    // Validate email
+    if (data.email && !validateEmail(data.email)) {
+        alert('Por favor, insira um e-mail válido.');
+        return false;
+    }
+    
+    // Validate phone
+    if (data.telefone && !validatePhone(data.telefone)) {
+        alert('Por favor, insira um telefone válido.');
+        return false;
+    }
+    
+    return true;
+}
+
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+
+function validatePhone(phone) {
+    const cleaned = phone.replace(/\D/g, '');
+    return cleaned.length >= 10 && cleaned.length <= 11;
+}
+
+function showSuccessMessage(message) {
+    // Create success modal
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 2rem 3rem;
+        border-radius: 15px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        z-index: 10000;
+        text-align: center;
+        max-width: 500px;
+    `;
+    
+    modal.innerHTML = `
+        <div style="font-size: 3rem; color: #4CAF50; margin-bottom: 1rem;">✓</div>
+        <h3 style="font-family: 'Playfair Display', serif; color: #163449; margin-bottom: 1rem;">Sucesso!</h3>
+        <p style="color: #555; margin-bottom: 2rem;">${message}</p>
+        <button onclick="this.parentElement.remove(); document.getElementById('overlay').remove();" 
+                style="padding: 0.8rem 2rem; background: #476690; color: white; border: none; 
+                       border-radius: 25px; cursor: pointer; font-weight: 600;">
+            Fechar
+        </button>
+    `;
+    
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.id = 'overlay';
+    overlay.style.cssText = `
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 9999;
+    `;
+    
+    overlay.addEventListener('click', () => {
+        modal.remove();
+        overlay.remove();
+    });
+    
+    document.body.appendChild(overlay);
+    document.body.appendChild(modal);
+    
+    // Auto-close after 5 seconds
+    setTimeout(() => {
+        if (modal.parentElement) {
+            modal.remove();
+            overlay.remove();
+        }
+    }, 5000);
+}
+
+// ===================================
+// IMAGE LAZY LOADING
+// ===================================
+
+const imageObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src || img.src;
+            img.classList.add('loaded');
+            imageObserver.unobserve(img);
+        }
+    });
+});
+
+document.querySelectorAll('img').forEach(img => {
+    imageObserver.observe(img);
+});
+
+// ===================================
+// PARALLAX EFFECT
+// ===================================
+
+window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const hero = document.querySelector('.hero');
+    
+    if (hero) {
+        hero.style.backgroundPositionY = scrolled * 0.5 + 'px';
+    }
+});
+
+// ===================================
+// PHONE NUMBER FORMATTING
+// ===================================
+
+document.querySelectorAll('input[type="tel"]').forEach(input => {
+    input.addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\D/g, '');
+        
+        if (value.length <= 11) {
+            if (value.length > 6) {
+                value = value.replace(/^(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+            } else if (value.length > 2) {
+                value = value.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+            } else if (value.length > 0) {
+                value = value.replace(/^(\d*)/, '($1');
             }
         }
+        
+        e.target.value = value;
+    });
+});
 
-        window.addEventListener('resize', checkScreenSize);
-        checkScreenSize();
+// ===================================
+// INITIALIZE ON PAGE LOAD
+// ===================================
 
-        // Efeito parallax para a seção hero
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            if (hero) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-            }
-        });
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('Sabor Das Ondas - Website loaded successfully!');
+    
+    // Set minimum date for date inputs to today
+    const today = new Date().toISOString().split('T')[0];
+    document.querySelectorAll('input[type="date"]').forEach(input => {
+        input.setAttribute('min', today);
+    });
+});
 
-        // Menu interativo com carrinho de compras
-        let cart = [];
-        let cartTotal = 0;
+// ===================================
+// PERFORMANCE OPTIMIZATION
+// ===================================
 
-        function createCartSystem() {
-            // Botão do carrinho de compras
-            const cartBtn = document.createElement('button');
-            cartBtn.innerHTML = '🛒 Carrinho (0)';
-            cartBtn.style.cssText = `
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                background: linear-gradient(45deg, #7C3AED, #5B21B6);
-                color: white;
-                border: none;
-                padding: 15px 20px;
-                border-radius: 50px;
-                font-weight: bold;
-                cursor: pointer;
-                z-index: 1000;
-                box-shadow: 0 4px 15px rgba(124,58,237,0.3);
-                transition: all 0.3s ease;
-            `;
-            
-            cartBtn.addEventListener('mouseover', () => {
-                cartBtn.style.transform = 'scale(1.05)';
-            });
-            
-            cartBtn.addEventListener('mouseout', () => {
-                cartBtn.style.transform = 'scale(1)';
-            });
-            
-            document.body.appendChild(cartBtn);
-
-            // Add "Adicionar ao Carrinho" 
-            document.querySelectorAll('.menu-item').forEach((item, index) => {
-                const addBtn = document.createElement('button');
-                addBtn.innerHTML = 'Adicionar ao Carrinho';
-                addBtn.style.cssText = `
-                    background: linear-gradient(45deg, #7C3AED, #5B21B6);
-                    color: white;
-                    border: none;
-                    padding: 10px 20px;
-                    border-radius: 25px;
-                    font-weight: bold;
-                    cursor: pointer;
-                    margin-top: 10px;
-                    transition: all 0.3s ease;
-                    width: 100%;
-                `;
-                
-                addBtn.addEventListener('click', () => {
-                    const itemName = item.querySelector('h3').textContent;
-                    const itemPrice = parseFloat(item.querySelector('.price').textContent.replace('R$ ', '').replace(',', '.'));
-                    
-                    cart.push({name: itemName, price: itemPrice});
-                    cartTotal += itemPrice;
-                    
-                    cartBtn.innerHTML = `🛒 Carrinho (${cart.length})`;
-                    
-                    // Feedback Visual
-                    addBtn.innerHTML = 'Adicionado!';
-                    addBtn.style.background = '#10B981';
-                    setTimeout(() => {
-                        addBtn.innerHTML = 'Adicionar ao Carrinho';
-                        addBtn.style.background = 'linear-gradient(45deg, #7C3AED, #5B21B6)';
-                    }, 1000);
-                });
-                
-                item.appendChild(addBtn);
-            });
-
-            // Funcionalidade do botão do carrinho
-            cartBtn.addEventListener('click', () => {
-                showCartModal();
-            });
-        }
-
-        function showCartModal() {
-            //Criar novo carrinho caso ja exista um
-            const existingModal = document.querySelector('.cart-modal');
-            if (existingModal) {
-                existingModal.remove();
-            }
-
-            const modal = document.createElement('div');
-            modal.className = 'cart-modal';
-            modal.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0.8);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 2000;
-                animation: fadeIn 0.3s ease;
-            `;
-            
-            const modalContent = document.createElement('div');
-            modalContent.style.cssText = `
-                background: white;
-                padding: 2rem;
-                border-radius: 20px;
-                max-width: 600px;
-                width: 90%;
-                max-height: 80vh;
-                overflow-y: auto;
-                box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-                animation: slideIn 0.3s ease;
-            `;
-            
-            let cartHTML = `
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-                    <h2 style="color: #7C3AED; margin: 0;">🛒 Seu Carrinho</h2>
-                    <button onclick="closeCartModal()" style="
-                        background: none;
-                        border: none;
-                        font-size: 1.5rem;
-                        cursor: pointer;
-                        color: #999;
-                        padding: 5px;
-                        border-radius: 50%;
-                        width: 30px;
-                        height: 30px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    ">×</button>
-                </div>
-            `;
-            
-            if (cart.length === 0) {
-                cartHTML += `
-                    <div style="text-align: center; padding: 2rem;">
-                        <div style="font-size: 4rem; margin-bottom: 1rem;">🛒</div>
-                        <p style="color: #666; font-size: 1.2rem;">Seu carrinho está vazio</p>
-                        <p style="color: #999;">Adicione alguns itens deliciosos do nosso menu!</p>
-                    </div>
-                `;
-            } else {
-                cartHTML += '<div style="max-height: 300px; overflow-y: auto;">';
-                cart.forEach((item, index) => {
-                    cartHTML += `
-                        <div style="
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            padding: 15px 0;
-                            border-bottom: 1px solid #eee;
-                            transition: all 0.3s ease;
-                        " onmouseover="this.style.backgroundColor='#f8f9fa'" onmouseout="this.style.backgroundColor='transparent'">
-                            <div>
-                                <strong style="color: #333; display: block;">${item.name}</strong>
-                                <small style="color: #666;">Quantidade: 1</small>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <span style="color: #7C3AED; font-weight: bold;">R$ ${item.price.toFixed(2).replace('.', ',')}</span>
-                                <button onclick="removeFromCart(${index})" style="
-                                    background: #EF4444;
-                                    color: white;
-                                    border: none;
-                                    padding: 5px 8px;
-                                    border-radius: 50%;
-                                    cursor: pointer;
-                                    font-size: 0.8rem;
-                                    transition: all 0.3s ease;
-                                " onmouseover="this.style.backgroundColor='#DC2626'" onmouseout="this.style.backgroundColor='#EF4444'">🗑️</button>
-                            </div>
-                        </div>
-                    `;
-                });
-                cartHTML += '</div>';
-                
-                cartHTML += `
-                    <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid #7C3AED;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                            <span style="font-size: 1.2rem; color: #333;">Total:</span>
-                            <strong style="font-size: 1.5rem; color: #7C3AED;">R$ ${cartTotal.toFixed(2).replace('.', ',')}</strong>
-                        </div>
-                        <div style="display: flex; gap: 10px;">
-                            <button onclick="clearCart()" style="
-                                background: #EF4444;
-                                color: white;
-                                border: none;
-                                padding: 12px 20px;
-                                border-radius: 25px;
-                                font-weight: bold;
-                                cursor: pointer;
-                                flex: 1;
-                                transition: all 0.3s ease;
-                            " onmouseover="this.style.backgroundColor='#DC2626'" onmouseout="this.style.backgroundColor='#EF4444'">Limpar Carrinho</button>
-                            <button onclick="finalizeOrder()" style="
-                                background: linear-gradient(45deg, #7C3AED, #5B21B6);
-                                color: white;
-                                border: none;
-                                padding: 12px 20px;
-                                border-radius: 25px;
-                                font-weight: bold;
-                                cursor: pointer;
-                                flex: 2;
-                                transition: all 0.3s ease;
-                            " onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">📱 Finalizar no WhatsApp</button>
-                        </div>
-                    </div>
-                `;
-            }
-            
-            cartHTML += `
-                <style>
-                    @keyframes fadeIn {
-                        from { opacity: 0; }
-                        to { opacity: 1; }
-                    }
-                    @keyframes slideIn {
-                        from { transform: translateY(-20px); opacity: 0; }
-                        to { transform: translateY(0); opacity: 1; }
-                    }
-                </style>
-            `;
-            
-            modalContent.innerHTML = cartHTML;
-            modal.appendChild(modalContent);
-            document.body.appendChild(modal);
-            
-            // Fechar modal clicando fora
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    closeCartModal();
-                }
-            });
-        }
-
-        // Função para fechar o modal
-        window.closeCartModal = function() {
-            const modal = document.querySelector('.cart-modal');
-            if (modal) {
-                modal.style.animation = 'fadeOut 0.3s ease';
-                setTimeout(() => {
-                    modal.remove();
-                }, 300);
-            }
+// Debounce function for scroll events
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
         };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
 
-        // Função para remover item do carrinho
-        window.removeFromCart = function(index) {
-            if (index >= 0 && index < cart.length) {
-                cartTotal -= cart[index].price;
-                cart.splice(index, 1);
-                
-                // Atualizar contador do carrinho
-                const cartBtn = document.querySelector('button[onclick*="Carrinho"]') || 
-                              document.querySelector('button').innerHTML.includes('🛒') ? 
-                              document.querySelector('button') : null;
-                if (cartBtn) {
-                    cartBtn.innerHTML = `🛒 Carrinho (${cart.length})`;
-                }
-                
-                // Reabrir modal com dados atualizados
-                showCartModal();
-                
-                // Feedback visual
-                if (cart.length === 0) {
-                    setTimeout(() => {
-                        const emptyMessage = document.querySelector('.cart-modal p');
-                        if (emptyMessage) {
-                            emptyMessage.style.animation = 'pulse 1s ease';
-                        }
-                    }, 100);
-                }
-            }
-        };
+// Apply debounce to scroll events
+const debouncedScroll = debounce(() => {
+    // Any heavy scroll operations can go here
+}, 100);
 
-        // Função para limpar carrinho
-        window.clearCart = function() {
-            if (confirm('Tem certeza que deseja limpar todo o carrinho?')) {
-                cart = [];
-                cartTotal = 0;
-                
-                // Atualizar contador do carrinho
-                const cartBtn = document.querySelector('button[onclick*="Carrinho"]') || 
-                              document.querySelector('button').innerHTML.includes('🛒') ? 
-                              document.querySelector('button') : null;
-                if (cartBtn) {
-                    cartBtn.innerHTML = `🛒 Carrinho (0)`;
-                }
-                
-                // Reabrir modal
-                showCartModal();
-            }
-        };
+window.addEventListener('scroll', debouncedScroll);
 
-        window.finalizeOrder = function() {
-            if (cart.length === 0) {
-                alert('Seu carrinho está vazio!');
-                return;
-            }
-            
-            const message = `🍇 *Pedido Açaí LHM* 🍇\n\nOlá! Gostaria de fazer o seguinte pedido:\n\n${cart.map((item, index) => `${index + 1}. ${item.name} - R$ ${item.price.toFixed(2).replace('.', ',')}`).join('\n')}\n\n💰 *Total: R$ ${cartTotal.toFixed(2).replace('.', ',')}*\n\n📍 *Endereço para entrega:*\n(Por favor, informe seu endereço)\n\n🕒 *Forma de pagamento:*\n(Dinheiro, PIX, Cartão)\n\nObrigado pela preferência! 😊`;
-            
-            const whatsappURL = `https://wa.me/5571993627318?text=${encodeURIComponent(message)}`;
-            window.open(whatsappURL, '_blank');
-            
-            // Feedback visual
-            const finalizeBtn = document.querySelector('button[onclick="finalizeOrder()"]');
-            if (finalizeBtn) {
-                finalizeBtn.innerHTML = '✅ Pedido Enviado!';
-                finalizeBtn.style.background = '#10B981';
-                setTimeout(() => {
-                    finalizeBtn.innerHTML = '📱 Finalizar no WhatsApp';
-                    finalizeBtn.style.background = 'linear-gradient(45deg, #7C3AED, #5B21B6)';
-                }, 2000);
-            }
-            
-            // Perguntar se deseja limpar o carrinho
-            setTimeout(() => {
-                if (confirm('Pedido enviado! Deseja limpar o carrinho?')) {
-                    cart = [];
-                    cartTotal = 0;
-                    const cartBtn = document.querySelector('button[onclick*="Carrinho"]') || 
-                                  Array.from(document.querySelectorAll('button')).find(btn => btn.innerHTML.includes('🛒'));
-                    if (cartBtn) {
-                        cartBtn.innerHTML = '🛒 Carrinho (0)';
-                    }
-                    closeCartModal();
-                }
-            }, 1000);
-        };
+// ===================================
+// ACCESSIBILITY ENHANCEMENTS
+// ===================================
 
-        // Newsletter login
-        function createNewsletterSection() {
-            const newsletterSection = document.createElement('section');
-            newsletterSection.style.cssText = `
-                background: linear-gradient(135deg, #7C3AED, #5B21B6);
-                color: white;
-                padding: 60px 0;
-                text-align: center;
-            `;
-            
-            newsletterSection.innerHTML = `
-                <div class="container">
-                    <h2 style="font-size: 2rem; margin-bottom: 1rem;">Receba nossas promoções!</h2>
-                    <p style="margin-bottom: 2rem;">Cadastre-se e seja o primeiro a saber sobre nossos descontos especiais</p>
-                    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-                        <input type="email" placeholder="Seu melhor email" style="
-                            padding: 12px 20px;
-                            border: none;
-                            border-radius: 25px;
-                            font-size: 1rem;
-                            min-width: 250px;
-                            outline: none;
-                        ">
-                        <button onclick="subscribeNewsletter()" style="
-                            background: white;
-                            color: #7C3AED;
-                            border: none;
-                            padding: 12px 30px;
-                            border-radius: 25px;
-                            font-weight: bold;
-                            cursor: pointer;
-                            transition: all 0.3s ease;
-                        ">Cadastrar</button>
-                    </div>
-                </div>
-            `;
-            
-            document.querySelector('#contact').parentNode.insertBefore(newsletterSection, document.querySelector('#contact'));
+// Trap focus in mobile menu when open
+const focusableElements = 'a[href], button, input, select, textarea';
+
+menuToggle.addEventListener('click', () => {
+    if (navMenu.classList.contains('active')) {
+        const firstFocusable = navMenu.querySelector(focusableElements);
+        if (firstFocusable) {
+            firstFocusable.focus();
         }
+    }
+});
 
-        window.subscribeNewsletter = function() {
-            const email = document.querySelector('input[type="email"]').value;
-            if (email) {
-                alert('Obrigado! Você receberá nossas promoções em breve!');
-                document.querySelector('input[type="email"]').value = '';
-            } else {
-                alert('Por favor, digite um email válido!');
-            }
-        };
+// Close mobile menu on Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+        navMenu.classList.remove('active');
+        const spans = menuToggle.querySelectorAll('span');
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+        menuToggle.focus();
+    }
+});
 
-        // Carrosel de Depoimentos
-        function createTestimonials() {
-            const testimonials = [
-                {name: "Maria Silva", text: "Melhor açaí da cidade! Sempre fresco e delicioso!"},
-                {name: "João Santos", text: "Atendimento excelente e produtos de qualidade!"},
-                {name: "Ana Costa", text: "Meu lugar favorito para tomar açaí com a família!"}
-            ];
-            
-            const testimonialsSection = document.createElement('section');
-            testimonialsSection.style.cssText = `
-                background: white;
-                padding: 60px 0;
-                text-align: center;
-            `;
-            
-            let currentTestimonial = 0;
-            
-            testimonialsSection.innerHTML = `
-                <div class="container">
-                    <h2 style="color: #7C3AED; font-size: 2rem; margin-bottom: 2rem;">O que nossos clientes dizem</h2>
-                    <div id="testimonial-container" style="
-                        background: #F8FAFC;
-                        padding: 2rem;
-                        border-radius: 20px;
-                        max-width: 600px;
-                        margin: 0 auto;
-                        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-                    ">
-                        <p style="font-size: 1.2rem; font-style: italic; margin-bottom: 1rem;">"${testimonials[0].text}"</p>
-                        <strong style="color: #7C3AED;">${testimonials[0].name}</strong>
-                    </div>
-                    <div style="margin-top: 1rem;">
-                        <button onclick="prevTestimonial()" style="
-                            background: #7C3AED;
-                            color: white;
-                            border: none;
-                            padding: 10px 15px;
-                            border-radius: 50%;
-                            cursor: pointer;
-                            margin: 0 10px;
-                        ">‹</button>
-                        <button onclick="nextTestimonial()" style="
-                            background: #7C3AED;
-                            color: white;
-                            border: none;
-                            padding: 10px 15px;
-                            border-radius: 50%;
-                            cursor: pointer;
-                            margin: 0 10px;
-                        ">›</button>
-                    </div>
-                </div>
-            `;
-            
-            document.querySelector('#about').parentNode.insertBefore(testimonialsSection, document.querySelector('#contact'));
-            
-            window.nextTestimonial = function() {
-                currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-                updateTestimonial();
-            };
-            
-            window.prevTestimonial = function() {
-                currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
-                updateTestimonial();
-            };
-            
-            function updateTestimonial() {
-                const container = document.getElementById('testimonial-container');
-                container.innerHTML = `
-                    <p style="font-size: 1.2rem; font-style: italic; margin-bottom: 1rem;">"${testimonials[currentTestimonial].text}"</p>
-                    <strong style="color: #7C3AED;">${testimonials[currentTestimonial].name}</strong>
-                `;
-            }
-            
-            // Rotação automatica do carrosel 
-            setInterval(() => {
-                nextTestimonial();
-            }, 5000);
+// ===================================
+// CAROUSEL FOR HERO SECTION (OPTIONAL)
+// ===================================
+
+// If you want to add multiple hero images, uncomment and customize:
+/*
+const heroImages = ['exterior1.jpg', 'interior1.jpg', 'bar1.jpg'];
+let currentImageIndex = 0;
+
+function changeHeroImage() {
+    currentImageIndex = (currentImageIndex + 1) % heroImages.length;
+    const hero = document.querySelector('.hero');
+    hero.style.backgroundImage = `linear-gradient(rgba(5, 11, 47, 0.5), rgba(22, 52, 73, 0.6)), url('${heroImages[currentImageIndex]}')`;
+}
+
+// Change image every 5 seconds
+setInterval(changeHeroImage, 5000);
+*/
+
+// ===================================
+// LOADING ANIMATION
+// ===================================
+
+window.addEventListener('load', () => {
+    // Remove loading class if you add a loading screen
+    document.body.classList.add('loaded');
+});
+
+// ===================================
+// FORM AUTOSAVE (Optional)
+// ===================================
+
+// Save form data to memory (not localStorage due to restrictions)
+const formDataCache = {};
+
+function saveFormData(formId) {
+    const form = document.getElementById(formId);
+    if (!form) return;
+    
+    const formData = new FormData(form);
+    formDataCache[formId] = Object.fromEntries(formData);
+}
+
+function restoreFormData(formId) {
+    const form = document.getElementById(formId);
+    if (!form || !formDataCache[formId]) return;
+    
+    Object.entries(formDataCache[formId]).forEach(([key, value]) => {
+        const input = form.querySelector(`[name="${key}"]`);
+        if (input) {
+            input.value = value;
         }
+    });
+}
 
-        // Efeito de digitação no titulo
-        function typeWriter() {
-            const text = "Açaí LHM";
-            const heroTitle = document.querySelector('.hero h1');
-            heroTitle.innerHTML = "";
-            
-            let i = 0;
-            function type() {
-                if (i < text.length) {
-                    heroTitle.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(type, 200);
-                }
-            }
-            
-            setTimeout(type, 1000);
-        }
+// Auto-save form data every 30 seconds
+const formsToSave = ['eventForm', 'feedbackForm', 'reservationForm'];
 
-        // Initialize all features
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                createCartSystem();
-                createNewsletterSection();
-                createTestimonials();
-                typeWriter();
-            }, 500);
-        });
+formsToSave.forEach(formId => {
+    const form = document.getElementById(formId);
+    if (form) {
+        form.addEventListener('input', debounce(() => {
+            saveFormData(formId);
+        }, 1000));
+        
+        // Restore on page load
+        restoreFormData(formId);
+    }
+});
 
-        // preço dinamico baseado das horas do dia
-        function updatePricing() {
-            const hour = new Date().getHours();
-            const isHappyHour = hour >= 14 && hour <= 17; // 2PM - 5PM
-            
-            if (isHappyHour) {
-                document.querySelectorAll('.price').forEach(priceEl => {
-                    const originalPrice = parseFloat(priceEl.textContent.replace('R$ ', '').replace(',', '.'));
-                    const discountPrice = originalPrice * 0.9; // 10% discount
-                    priceEl.innerHTML = `<span style="text-decoration: line-through; color: #999;">R$ ${originalPrice.toFixed(2).replace('.', ',')}</span><br>R$ ${discountPrice.toFixed(2).replace('.', ',')} <span style="color: #10B981; font-size: 0.8rem;">(Happy Hour!)</span>`;
-                });
-            }
-        }
-
-        // Checagem de HappyHour
-        updatePricing();
-        setInterval(updatePricing, 60000); // checar todo minuto
+console.log('✨ Sabor Das Ondas - Todas as funcionalidades carregadas com sucesso!');

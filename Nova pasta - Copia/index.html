@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sabor Das Ondas - Restaurante de luxo em iate exclusivo. Experiência gastronômica única com música ao vivo às sextas-feiras.">
+    <title>Sabor Das Ondas - Restaurante de Luxo em Iate</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">Sabor Das Ondas</div>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link">Início</a></li>
+                <li><a href="#sobre" class="nav-link">Sobre</a></li>
+                <li><a href="#cardapio" class="nav-link">Cardápio</a></li>
+                <li><a href="#eventos" class="nav-link">Eventos</a></li>
+                <li><a href="#feedbacks" class="nav-link">Feedbacks</a></li>
+                <li><a href="#contato" class="nav-link">Contato</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title fade-in">Sabor Das Ondas</h1>
+            <p class="hero-subtitle fade-in-delay-1">Experiência Gastronômica em Alto Mar</p>
+            <div class="hero-highlight fade-in-delay-2">
+                <p class="highlight-text">🎵 Toda sexta-feira, viva a magia da música ao vivo no Sabor Das Ondas!</p>
+            </div>
+            <a href="#contato" class="cta-button fade-in-delay-3">Reserve sua Mesa</a>
+        </div>
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre" class="section about-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Nossa História</h2>
+                <div class="title-divider"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="lead-text">O Sabor Das Ondas nasceu de um sonho audacioso: unir alta gastronomia com a majestade do oceano.</p>
+                    <p>Localizado dentro de um iate de luxo, nosso restaurante oferece uma experiência gastronômica incomparável. Cada prato é cuidadosamente elaborado por nossos chefs renomados, combinando ingredientes premium com técnicas culinárias contemporâneas.</p>
+                    <p>Navegue conosco através de sabores refinados enquanto desfruta de vistas panorâmicas do mar. Nossa equipe dedicada está comprometida em proporcionar momentos inesquecíveis, onde cada detalhe é pensado para o seu conforto e satisfação.</p>
+                    <p>Às sextas-feiras, a experiência se torna ainda mais especial com apresentações de música ao vivo, criando a atmosfera perfeita para uma noite memorável.</p>
+                </div>
+                <div class="about-images">
+                    <div class="about-image-wrapper">
+                        <img src="assets/interior1.jpg" alt="Interior elegante do Sabor Das Ondas" class="about-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="cardapio" class="section menu-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Nosso Cardápio</h2>
+                <div class="title-divider"></div>
+                <p class="section-subtitle">Uma seleção refinada de pratos e bebidas exclusivas</p>
+            </div>
+            
+            <div class="menu-category">
+                <h3 class="menu-category-title">Entradas</h3>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <h4>Ceviche de Vieiras</h4>
+                            <span class="menu-price">R$ 89</span>
+                        </div>
+                        <p class="menu-description">Vieiras frescas marinadas em limão siciliano, com espuma de coentro, manga e pimenta dedo-de-moça</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <h4>Carpaccio de Polvo</h4>
+                            <span class="menu-price">R$ 95</span>
+                        </div>
+                        <p class="menu-description">Finas fatias de polvo sobre cama de rúcula selvagem, alcaparras e emulsão de limão yuzu</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <h4>Tartar de Atum</h4>
+                            <span class="menu-price">R$ 98</span>
+                        </div>
+                        <p class="menu-description">Atum vermelho em cubos, abacate, gengibre, gergelim tostado e molho ponzu</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-gallery">
+                <div class="menu-gallery-item">
+                    <img src="assets/prato1.jpg" alt="Prato gourmet do Sabor Das Ondas" class="menu-image">
+                </div>
+                <div class="menu-gallery-item">
+                    <img src="assets/prato2.jpg" alt="Prato exclusivo do Sabor Das Ondas" class="menu-image">
+                </div>
+            </div>
+
+            <div class="menu-category">
+                <h3 class="menu-category-title">Pratos Principais</h3>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <h4>Robalo ao Molho de Maracujá</h4>
+                            <span class="menu-price">R$ 165</span>
+                        </div>
+                        <p class="menu-description">Filé de robalo grelhado com crosta de ervas, acompanhado de risoto de camarão e redução de maracujá</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <h4>Lagosta Thermidor</h4>
+                            <span class="menu-price">R$ 285</span>
+                        </div>
+                        <p class="menu-description">Lagosta gratinada com molho béchamel trufado, cogumelos e queijo gruyère</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <h4>Mignon Wellington</h4>
+                            <span class="menu-price">R$ 195</span>
+                        </div>
+                        <p class="menu-description">Medalhões de mignon em crosta folhada, foie gras e redução de vinho do Porto</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-category">
+                <h3 class="menu-category-title">Sobremesas</h3>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <h4>Suspiro do Mar</h4>
+                            <span class="menu-price">R$ 45</span>
+                        </div>
+                        <p class="menu-description">Merengue suíço com creme de limão siciliano, caviar de frutas vermelhas e hortelã cristalizada</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <h4>Petit Gâteau de Chocolate Belga</h4>
+                            <span class="menu-price">R$ 48</span>
+                        </div>
+                        <p class="menu-description">Bolo quente de chocolate 70% cacau com coração cremoso, sorvete de baunilha Madagascar</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <h4>Pavlova de Frutas Tropicais</h4>
+                            <span class="menu-price">R$ 42</span>
+                        </div>
+                        <p class="menu-description">Merengue crocante com chantilly, manga, maracujá, kiwi e calda de açaí</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-category">
+                <h3 class="menu-category-title">Drinks Exclusivos</h3>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <h4>Maré Alta</h4>
+                            <span class="menu-price">R$ 38</span>
+                        </div>
+                        <p class="menu-description">Gin premium, suco de limão, xarope de pepino, água tônica e raspas de gengibre</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <h4>Ondas de Coco</h4>
+                            <span class="menu-price">R$ 35</span>
+                        </div>
+                        <p class="menu-description">Cachaça envelhecida, água de coco fresca, abacaxi, hortelã e limão</p>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <h4>Sunset no Iate</h4>
+                            <span class="menu-price">R$ 42</span>
+                        </div>
+                        <p class="menu-description">Vodka premium, suco de maracujá, champagne rosé e pétalas de rosa comestíveis</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="eventos" class="section events-section">
+        <div class="events-overlay"></div>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title light">Eventos & Música ao Vivo</h2>
+                <div class="title-divider light"></div>
+            </div>
+            <div class="events-content">
+                <div class="event-highlight">
+                    <div class="event-icon">🎵</div>
+                    <h3>Sextas-feiras Musicais</h3>
+                    <p class="event-description">Todas as sextas-feiras, desfrute de uma noite única com música ao vivo de artistas renomados. Deixe-se envolver pela melodia enquanto saboreia nossa gastronomia excepcional e admira o pôr do sol sobre o oceano.</p>
+                    <p class="event-time">Horário: 19h às 23h</p>
+                </div>
+                <div class="event-cta">
+                    <h4>Reserve sua Mesa para a Próxima Sexta</h4>
+                    <form id="eventForm" class="event-form">
+                        <input type="text" name="nome" placeholder="Nome Completo" required>
+                        <input type="email" name="email" placeholder="E-mail" required>
+                        <input type="tel" name="telefone" placeholder="Telefone" required>
+                        <input type="date" name="data" required>
+                        <select name="pessoas" required>
+                            <option value="">Número de Pessoas</option>
+                            <option value="2">2 pessoas</option>
+                            <option value="4">4 pessoas</option>
+                            <option value="6">6 pessoas</option>
+                            <option value="8+">8+ pessoas</option>
+                        </select>
+                        <button type="submit" class="cta-button">Confirmar Reserva</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="feedbacks" class="section testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">O que Dizem Nossos Clientes</h2>
+                <div class="title-divider"></div>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Uma noite inesquecível! A comida é impecável, o ambiente é puro luxo e a música ao vivo às sextas-feiras torna tudo ainda mais especial. Uma experiência que supera todas as expectativas."</p>
+                    <p class="testimonial-author">— Mariana S.</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"O Sabor Das Ondas combina alta gastronomia com uma vista deslumbrante do mar. Melhor restaurante que já visitei! O atendimento é impecável e cada prato é uma obra de arte."</p>
+                    <p class="testimonial-author">— Carlos R.</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Jantar em um iate com vista para o mar, saboreando pratos incríveis e ouvindo música ao vivo foi simplesmente mágico. Recomendo a todos que buscam uma experiência única!"</p>
+                    <p class="testimonial-author">— Ana L.</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"A combinação de gastronomia impecável, ambiente sofisticado e música ao vivo às sextas faz desse restaurante um destino imperdível! Já voltei três vezes e sempre surpreende."</p>
+                    <p class="testimonial-author">— Pedro M.</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Celebramos nosso aniversário de casamento no Sabor Das Ondas e foi perfeito. Do atendimento à comida, da decoração à música, tudo contribuiu para uma noite emocionante e romântica."</p>
+                    <p class="testimonial-author">— Juliana & Ricardo T.</p>
+                </div>
+            </div>
+            
+            <div class="feedback-form-section">
+                <h3>Compartilhe sua Experiência</h3>
+                <form id="feedbackForm" class="feedback-form">
+                    <input type="text" name="nome" placeholder="Seu Nome" required>
+                    <input type="email" name="email" placeholder="Seu E-mail" required>
+                    <div class="rating-input">
+                        <label>Sua Avaliação:</label>
+                        <div class="star-rating" id="starRating">
+                            <span data-rating="1">☆</span>
+                            <span data-rating="2">☆</span>
+                            <span data-rating="3">☆</span>
+                            <span data-rating="4">☆</span>
+                            <span data-rating="5">☆</span>
+                        </div>
+                        <input type="hidden" name="rating" id="ratingValue" required>
+                    </div>
+                    <textarea name="mensagem" placeholder="Conte-nos sobre sua experiência..." rows="5" required></textarea>
+                    <button type="submit" class="cta-button">Enviar Feedback</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contato" class="section contact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Contato & Reservas</h2>
+                <div class="title-divider"></div>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h4>📞 Telefone</h4>
+                        <p><a href="tel:+5571992874900">+55 71 99287-4900</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>📍 Localização</h4>
+                        <p>Cais da Felicidade, 100. Bairro dos Sonhos. SSA-BA<br>Marina exclusiva com acesso controlado</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>🕐 Horários</h4>
+                        <p>Terça a Quinta: 18h - 23h<br>
+                        Sexta e Sábado: 18h - 01h (com música ao vivo às sextas)<br>
+                        Domingo: 12h - 22h<br>
+                        Segunda: Fechado</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>📱 Redes Sociais</h4>
+                        <div class="social-links">
+                            <a href="#" class="social-link">Instagram</a>
+                            <a href="#" class="social-link">Facebook</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="reservation-form-wrapper">
+                    <h3>Faça sua Reserva</h3>
+                    <form id="reservationForm" class="reservation-form">
+                        <input type="text" name="nome" placeholder="Nome Completo" required>
+                        <input type="email" name="email" placeholder="E-mail" required>
+                        <input type="tel" name="telefone" placeholder="Telefone" required>
+                        <input type="date" name="data" required>
+                        <select name="horario" required>
+                            <option value="">Selecione o Horário</option>
+                            <option value="18:00">18:00</option>
+                            <option value="19:00">19:00</option>
+                            <option value="20:00">20:00</option>
+                            <option value="21:00">21:00</option>
+                            <option value="22:00">22:00</option>
+                        </select>
+                        <select name="pessoas" required>
+                            <option value="">Número de Pessoas</option>
+                            <option value="1">1 pessoa</option>
+                            <option value="2">2 pessoas</option>
+                            <option value="3">3 pessoas</option>
+                            <option value="4">4 pessoas</option>
+                            <option value="5">5 pessoas</option>
+                            <option value="6">6 pessoas</option>
+                            <option value="6+">Mais de 6 pessoas</option>
+                        </select>
+                        <textarea name="observacoes" placeholder="Observações especiais (opcional)" rows="3"></textarea>
+                        <button type="submit" class="cta-button">Confirmar Reserva</button>
+                    </form>
+                </div>
+            </div>
+                <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.170883584373!2d-38.50677248562107!3d-12.974165990867813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7161b1b0b0b0b0b%3A0x1b0b0b0b0b0b0b0b!2sSalvador%2C%20BA!5e0!3m2!1spt-BR!2sbr!4v1234567890123!5m2!1spt-BR!2sbr" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Sabor Das Ondas</h3>
+                    <p>Experiência Gastronômica em Alto Mar</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#sobre">Sobre</a></li>
+                        <li><a href="#cardapio">Cardápio</a></li>
+                        <li><a href="#eventos">Eventos</a></li>
+                        <li><a href="#contato">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contato</h4>
+                    <p>📞 +55 71 99287-4900</p>
+                    <p>📍 Salvador, Bahia</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Sabor Das Ondas. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
